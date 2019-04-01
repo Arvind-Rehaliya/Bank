@@ -13,6 +13,7 @@
      a. Data Structure Mode or 
    
      b. MySQL Mode. 
+     
    Data Sturc. mode is selected when SQLException occurs else MySQL mode is selected. If MySQL is installed + a database is created named bank + table is created which is described earlier(in root directory of this project there is another README.md file).  
   3. ReserveBank.java -- The logic in this file is used when bank successfully access your MySQL database, Which is already started by you before going to bank with username = root and password = (blank or press enter key) and store user's data in database. 
 
