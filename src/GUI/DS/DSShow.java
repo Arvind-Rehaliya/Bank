@@ -1,4 +1,4 @@
-package GUI.login;
+package GUI.DS;
 
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -10,10 +10,9 @@ import java.awt.Font;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import Bank.ReserveBank;
 import Bank.WhenSQLExceptionOccurs;
 
-public class SHOW_Page extends JFrame implements ActionListener {
+public class DSShow extends JFrame implements ActionListener {
 	public JButton login, create, show, status, addbal;
 	public TextField user;
 	public JPasswordField pass;
@@ -21,11 +20,11 @@ public class SHOW_Page extends JFrame implements ActionListener {
 	
     public JLabel l_name, l_accnt, l_pno, l_bal, l_gname, l_gaccnt, l_gpno, l_avlbal;
     public Container c;
-	public ReserveBank rb;
+    public WhenSQLExceptionOccurs sq;
     
-	public SHOW_Page(ReserveBank rb) {
+	public DSShow(WhenSQLExceptionOccurs sq) {
 		   c = getContentPane(); c.setBackground(Color.black);
-		   c.setLayout(null); this.rb = rb;
+		   c.setLayout(null); this.sq = sq;
 
 		   login = new JButton("Login"); login.setBackground(Color.darkGray); login.setForeground(Color.white); login.setFont(new Font("Helvetica", Font.PLAIN, 15)); login.setBounds(0, 50, 200, 60); login.setMnemonic('l'); login.setToolTipText("LogIn");                                     
 		   create = new JButton("Create Account"); create.setBackground(Color.darkGray); create.setForeground(Color.white); create.setFont(new Font("Helvetica", Font.PLAIN, 15)); create.setBounds(0, 110, 200, 60); create.setMnemonic('c'); create.setToolTipText("Create Account");
@@ -55,10 +54,10 @@ public class SHOW_Page extends JFrame implements ActionListener {
    	       status.addActionListener(this);
 	}
 	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource() == login) {new LOGIN_Page(rb); this.dispose();}
-		if(ae.getSource() == create) {new CREATE_Page(rb); this.dispose();}
-		if(ae.getSource() == addbal) {rb.addBalance1(new ADDBALANCE_Page(rb)); this.dispose();}
-		if(ae.getSource() == status) {rb.showDetails(new STATUS_Page(rb)); this.dispose();}
+		if(ae.getSource() == login) {new DSLogin(sq); this.dispose();}
+		if(ae.getSource() == create) {new DSCreate(sq); this.dispose();}
+		if(ae.getSource() == addbal) {sq.addBalance1(new DSAddbalance(sq)); this.dispose();}
+		if(ae.getSource() == status) {sq.showDetails(new DSStatus(sq)); this.dispose();}
 	}
 }
 

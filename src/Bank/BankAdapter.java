@@ -7,27 +7,30 @@ import GUI.login.STATUS_Page;
 import GUI.login.SHOW_Page;
 
 public class BankAdapter implements BankProcedure {
+	
+	// blank implementation of all methods of BankProcedure
+	
 	@Override
 	public void turnBankServerOn() {}
 	
 	@Override
-	public void createAccount(ReserveBank rb, CREATE_Page cp) {}
+	public void createAccount(CREATE_Page cp) {}
 	@Override
-	public void addBalance(ReserveBank rb, ADDBALANCE_Page ad) {}
+	public void addBalance(ADDBALANCE_Page ad) {}
 	
 	@Override
-	public int showBalance(ReserveBank rb, SHOW_Page sp) {return 0;}
+	public void showBalance(SHOW_Page sp) {}
 	
 	@Override
-	public void authentic(LOGIN_Page lp, ReserveBank rb) {}
+	public void authentic(LOGIN_Page lp) {}
 	
 	@Override
-	public void generateAccountNo(ReserveBank rb) {}
+	public void generateAccountNo() {}
 	
 	@Override
-	public void addBalance1(ReserveBank rb, ADDBALANCE_Page ad) {}	 
+	public void addBalance1(ADDBALANCE_Page ad) {}	 
 	
 	@Override
-	public void showDetails(ReserveBank rb, STATUS_Page st) {}
+	public void showDetails(STATUS_Page st) {}
 
 }

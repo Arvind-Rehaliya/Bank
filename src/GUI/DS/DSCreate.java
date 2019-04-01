@@ -1,4 +1,4 @@
-package GUI.login;
+package GUI.DS;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -17,10 +17,9 @@ import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JPasswordField;
-import Bank.ReserveBank;
 import Bank.WhenSQLExceptionOccurs;
 
-public class CREATE_Page extends JFrame implements ActionListener {
+public class DSCreate extends JFrame implements ActionListener {
 	public JButton login, create, show, status, addbal, cnf;
 	public CheckboxGroup bg;
 	public Checkbox rb_ml, rb_fl;
@@ -32,11 +31,11 @@ public class CREATE_Page extends JFrame implements ActionListener {
 	public JCheckBox cb_terms;
 	public JPasswordField tf_pass;
     public Container c;
-	public ReserveBank rb;
+	public WhenSQLExceptionOccurs sq;
 	
-	public CREATE_Page(ReserveBank rb) {
+	public DSCreate(WhenSQLExceptionOccurs sq) {
 	   c = getContentPane(); c.setBackground(Color.black);
-	   c.setLayout(null); this.rb = rb;
+	   c.setLayout(null); this.sq = sq;
 	   
 	   login = new JButton("Login"); login.setBackground(Color.darkGray); login.setForeground(Color.white); login.setFont(new Font("Helvetica", Font.PLAIN, 15)); login.setBounds(0, 50, 200, 60); login.setMnemonic('l'); login.setToolTipText("LogIn");                                     
 	   create = new JButton("Create Account"); create.setBackground(Color.black); create.setForeground(Color.white); create.setFont(new Font("Helvetica", Font.PLAIN, 15)); create.setBounds(0, 110, 200, 60); create.setMnemonic('c'); create.setToolTipText("Create Account");
@@ -68,7 +67,7 @@ public class CREATE_Page extends JFrame implements ActionListener {
        tf_pno = new JTextField("", 100); tf_pno.setFont(new Font("Verdana", Font.PLAIN, 15)); tf_pno.setBounds(360, 270, 150, 22); tf_pno.setBackground(Color.darkGray); tf_pno.setForeground(Color.white); 
        l_terms = new JLabel("I accept all Terms and Conditions of Reserve Bank"); l_terms.setFont(new Font("Verdana", Font.PLAIN, 15)); l_terms.setBounds(280, 552, 600, 20); l_terms.setBackground(Color.black); l_terms.setForeground(Color.white); 
        l_terms2 = new JLabel("Confirms all the provided details are true");  l_terms2.setFont(new Font("Verdana", Font.PLAIN, 15)); l_terms2.setBounds(280, 572, 600, 20); l_terms2.setBackground(Color.black); l_terms2.setForeground(Color.white);
-       cb_terms = new JCheckBox("", true); cb_terms.setBounds(250, 552, 20, 20); cb_terms.setBackground(Color.black);
+       cb_terms = new JCheckBox("", true); cb_terms.setBounds(250, 552, 20, 20); cb_terms.setBackground(Color.black); 
        jcb_cnt = new JComboBox<>();  jcb_cnt.addItem("Bhutan"); jcb_cnt.addItem("China"); jcb_cnt.addItem("France"); jcb_cnt.addItem("Germany"); jcb_cnt.addItem("India"); jcb_cnt.addItem("Iran"); jcb_cnt.addItem("Iraq"); jcb_cnt.addItem("Isreal"); jcb_cnt.addItem("Japan"); jcb_cnt.addItem("Maldives"); jcb_cnt.addItem("Mayamar"); jcb_cnt.addItem("Nepal"); jcb_cnt.addItem("Russia"); jcb_cnt.addItem("Shri Lanka"); jcb_cnt.addItem("South Korea"); jcb_cnt.addItem("Turkey"); jcb_cnt.addItem("United Arab Emirates"); jcb_cnt.addItem("United States of America"); 
        jcb_cnt.setBackground(Color.darkGray);jcb_cnt.setFont(new Font("Tahoma", Font.PLAIN, 16)); jcb_cnt.setForeground(Color.white); jcb_cnt.setBounds(360, 432, 200, 20); 
        l_cnt = new JLabel("Country *"); l_cnt.setBackground(Color.black); l_cnt.setForeground(Color.white); l_cnt.setFont(new Font("Helvetica", Font.PLAIN, 17)); l_cnt.setBounds(250, 432, 100, 20); 
@@ -76,9 +75,9 @@ public class CREATE_Page extends JFrame implements ActionListener {
        cb_terms.addChangeListener(e -> {if(cb_terms.isSelected()) cnf.setEnabled(true); else cnf.setEnabled(false); });
        
        jl_user = new JLabel("Username *");  jl_user.setFont(new Font("Helvetica", Font.PLAIN, 17)); jl_user.setBounds(250, 472, 100, 20); jl_user.setBackground(Color.red); jl_user.setForeground(Color.white); 
-       tf_user = new JTextField(25);  tf_user.setFont(new Font("Tahoma", Font.PLAIN, 15)); tf_user.setBounds(360, 472, 150, 20); tf_user.setBackground(Color.darkGray); tf_user.setForeground(Color.white); 
+       tf_user = new JTextField(25);  tf_user.setFont(new Font("Helvetica", Font.PLAIN, 17)); tf_user.setBounds(360, 472, 150, 20); tf_user.setBackground(Color.darkGray); tf_user.setForeground(Color.white); 
        jl_pass = new JLabel("Password *");  jl_pass.setFont(new Font("Helvetica", Font.PLAIN, 17)); jl_pass.setBounds(250, 502, 100, 20); jl_pass.setBackground(Color.red); jl_pass.setForeground(Color.white); 
-       tf_pass = new JPasswordField(25);  tf_pass.setFont(new Font("Tahoma", Font.PLAIN, 15)); tf_pass.setBounds(360, 502, 150, 20); tf_pass.setBackground(Color.darkGray); tf_pass.setForeground(Color.white); 
+       tf_pass = new JPasswordField(25);  tf_pass.setFont(new Font("Helvetica", Font.PLAIN, 17)); tf_pass.setBounds(360, 502, 150, 20); tf_pass.setBackground(Color.darkGray); tf_pass.setForeground(Color.white); 
        l_err = new JLabel("Enter Details Correctly"); l_err.setBackground(Color.black); l_err.setForeground(Color.red); l_err.setFont(new Font("Helvetica", Font.PLAIN, 13)); l_err.setBounds(280, 590, 300, 30); l_err.setVisible(false); c.add(l_err); 
        
        c.add(l_fnm); c.add(l_lnm); c.add(gender); c.add(age); c.add(addrss); c.add(sp); c.add(ta_addrss); c.add(rb_ml); c.add(rb_fl); c.add(tf_fnm); c.add(tf_lnm); c.add(info); c.add(l_pno); c.add(tf_pno); c.add(jcb_cnt); c.add(l_cnt); c.add(cnf); c.add(l_terms); c.add(cb_terms); c.add(l_terms2); c.add(jl_user); c.add(jl_pass); c.add(tf_user); c.add(tf_pass);     
@@ -92,10 +91,20 @@ public class CREATE_Page extends JFrame implements ActionListener {
 	    cnf.addActionListener(this);
 	}
 	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource() == cnf) {rb.createAccount(this);} 
-		if(ae.getSource() == login) {new LOGIN_Page(rb); this.dispose();}
-		if(ae.getSource() == addbal) {new ADDBALANCE_Page(rb); this.dispose();}
-		if(ae.getSource() == show) {rb.showBalance(new SHOW_Page(rb)); this.dispose();}
-		if(ae.getSource() == status) {rb.showDetails(new STATUS_Page(rb)); this.dispose();}
+		if(ae.getSource() == cnf) { sq.createAccount(this);} 
+		if(ae.getSource() == login) {new DSLogin(sq); this.dispose();}
+		if(ae.getSource() == addbal) {sq.addBalance1(new DSAddbalance(sq)); this.dispose();}
+		if(ae.getSource() == show) {sq.showBalance(new DSShow(sq)); this.dispose();}
+		if(ae.getSource() == status) {sq.showDetails(new DSStatus(sq)); this.dispose();}
 	}
 }
+
+
+
+
+
+
+
+
+
+

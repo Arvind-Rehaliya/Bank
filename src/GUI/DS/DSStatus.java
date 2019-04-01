@@ -1,4 +1,4 @@
-package GUI.login;
+package GUI.DS;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -11,19 +11,18 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import Bank.ReserveBank;
 import Bank.WhenSQLExceptionOccurs;
 
-public class STATUS_Page extends JFrame implements ActionListener {
+public class DSStatus extends JFrame implements ActionListener {
 	public JButton login, create, show, status, addbal;	
 	public JLabel jl_fnm, jl_gender, jl_age, jl_addrss, jl_pno, jl_cnt, jl_gfnm, jl_ggender, jl_gage, jl_gpno, jl_gcnt, jl_wel, jl_user;
 	public JTextArea ta_addrss;
     public Container c;
-	public ReserveBank rb;
+    public WhenSQLExceptionOccurs sq;
     
-	public STATUS_Page(ReserveBank rb) {
+	public DSStatus(WhenSQLExceptionOccurs sq) {
 	    c = getContentPane();
-	    c.setLayout(null); c.setBackground(Color.black); this.rb = rb;
+	    c.setLayout(null); c.setBackground(Color.black); this.sq = sq;
 	    
 	    login = new JButton("Login"); login.setBackground(Color.darkGray); login.setForeground(Color.white); login.setFont(new Font("Helvetica", Font.PLAIN, 15)); login.setBounds(0, 50, 200, 60); login.setMnemonic('l'); login.setToolTipText("LogIn");                                     
 		create = new JButton("Create Account"); create.setBackground(Color.darkGray); create.setForeground(Color.white); create.setFont(new Font("Helvetica", Font.PLAIN, 15)); create.setBounds(0, 110, 200, 60); create.setMnemonic('c'); create.setToolTipText("Create Account");
@@ -41,14 +40,14 @@ public class STATUS_Page extends JFrame implements ActionListener {
 	    jl_pno = new JLabel("Phone Number", JLabel.RIGHT); jl_pno.setBackground(Color.black); jl_pno.setForeground(Color.red); jl_pno.setFont(new Font("Helvetica", Font.PLAIN, 15)); jl_pno.setBounds(200, 370, 200, 30);
 	    jl_cnt = new JLabel("Country", JLabel.RIGHT); jl_cnt.setBackground(Color.black); jl_cnt.setForeground(Color.red); jl_cnt.setFont(new Font("Helvetica", Font.PLAIN, 15)); jl_cnt.setBounds(300, 420, 100, 30);
 		
-	    jl_gfnm = new JLabel(); jl_gfnm.setBackground(Color.black); jl_gfnm.setForeground(Color.white); jl_gfnm.setFont(new Font("Helvetica", Font.PLAIN, 15)); jl_gfnm.setBounds(420, 100, 100, 30);
+	    jl_gfnm = new JLabel(); jl_gfnm.setBackground(Color.black); jl_gfnm.setForeground(Color.white); jl_gfnm.setFont(new Font("Helvetica", Font.PLAIN, 15)); jl_gfnm.setBounds(420, 100, 300, 30);
 	    jl_ggender = new JLabel(); jl_ggender.setBackground(Color.black); jl_ggender.setForeground(Color.white); jl_ggender.setFont(new Font("Helvetica", Font.PLAIN, 15)); jl_ggender.setBounds(420, 150, 150, 30);
 	    jl_gage = new JLabel(); jl_gage.setBackground(Color.black); jl_gage.setForeground(Color.white); jl_gage.setFont(new Font("Helvetica", Font.PLAIN, 15)); jl_gage.setBounds(420, 200, 150, 30);
 	    jl_gpno = new JLabel(); jl_gpno.setBackground(Color.black); jl_gpno.setForeground(Color.white); jl_gpno.setFont(new Font("Helvetica", Font.PLAIN, 15)); jl_gpno.setBounds(420, 370, 100, 30);
 	    jl_gcnt = new JLabel(); jl_gcnt.setBackground(Color.black); jl_gcnt.setForeground(Color.white); jl_gcnt.setFont(new Font("Helvetica", Font.PLAIN, 15)); jl_gcnt.setBounds(420, 420, 250, 30);
 
-	    jl_wel = new JLabel("Welcome , ", JLabel.RIGHT); jl_wel.setBackground(Color.black); jl_wel.setForeground(Color.blue); jl_wel.setFont(new Font("Verdana", Font.ITALIC+Font.BOLD, 17)); jl_wel.setBounds(150, 50, 200, 30);
-	    jl_user = new JLabel("", JLabel.LEFT); jl_user.setBackground(Color.black); jl_user.setForeground(Color.white); jl_user.setFont(new Font("Helvetica", Font.PLAIN, 15)); jl_user.setBounds(370, 65, 250, 20);
+	    jl_wel = new JLabel("Welcome , ", JLabel.RIGHT); jl_wel.setBackground(Color.black); jl_wel.setForeground(Color.yellow); jl_wel.setFont(new Font("Verdana", Font.ITALIC+Font.BOLD, 20)); jl_wel.setBounds(200, 50, 200, 30);
+	    jl_user = new JLabel("", JLabel.LEFT); jl_user.setBackground(Color.black); jl_user.setForeground(Color.white); jl_user.setFont(new Font("Helvetica", Font.PLAIN, 15)); jl_user.setBounds(400, 65, 250, 20);
 
 
 	    ta_addrss = new JTextArea(10, 20); ta_addrss.setBackground(Color.black); ta_addrss.setForeground(Color.white); ta_addrss.setFont(new Font("Helvetica", Font.PLAIN, 15)); ta_addrss.setBounds(420, 250, 220, 100); ta_addrss.setEditable(false); ta_addrss.setLineWrap(true); ta_addrss.setBorder(BorderFactory.createEtchedBorder(5, Color.cyan, Color.yellow));
@@ -62,15 +61,12 @@ public class STATUS_Page extends JFrame implements ActionListener {
 	    show.addActionListener(this);
 	}
 	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource() == login) {new LOGIN_Page(rb); this.dispose();}
-		if(ae.getSource() == create) {new CREATE_Page(rb); this.dispose();}
-		if(ae.getSource() == addbal) {ADDBALANCE_Page ad = new ADDBALANCE_Page(rb); rb.addBalance1(ad); this.dispose();}
-		if(ae.getSource() == show) {rb.showBalance(new SHOW_Page(rb)); this.dispose();}
+		if(ae.getSource() == login) {new DSLogin(sq); this.dispose();}
+		if(ae.getSource() == create) {new DSCreate(sq); this.dispose();}
+		if(ae.getSource() == addbal) {sq.addBalance1(new DSAddbalance(sq)); this.dispose();}
+		if(ae.getSource() == show) {sq.showBalance(new DSShow(sq)); this.dispose();}
 	}
 }
-
-
-
 
 
 

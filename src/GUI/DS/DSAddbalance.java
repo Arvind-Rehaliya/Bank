@@ -1,4 +1,4 @@
-package GUI.login;
+package GUI.DS;
 
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -12,10 +12,9 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
-import Bank.ReserveBank;
 import Bank.WhenSQLExceptionOccurs;
 
-public class ADDBALANCE_Page extends JFrame implements ActionListener{
+public class DSAddbalance extends JFrame implements ActionListener{
 	public JButton login, create, show, status, addbal, ok;
 	public TextField user;
 	public JPasswordField pass;
@@ -25,11 +24,11 @@ public class ADDBALANCE_Page extends JFrame implements ActionListener{
     public JTextField tf_bal;
 	public JButton bt_cnf;
     public Container c;
-	public ReserveBank rb;
+	public WhenSQLExceptionOccurs sq;
 	
-	public ADDBALANCE_Page(ReserveBank rb) {
+	public DSAddbalance(WhenSQLExceptionOccurs sq) {
 		   c = getContentPane(); c.setBackground(Color.black);
-		   c.setLayout(null); this.rb = rb;
+		   c.setLayout(null); this.sq = sq;
 
 		   login = new JButton("Login"); login.setBackground(Color.darkGray); login.setForeground(Color.white); login.setFont(new Font("Helvetica", Font.PLAIN, 15)); login.setBounds(0, 50, 200, 60); login.setMnemonic('l'); login.setToolTipText("LogIn");                                     
 		   create = new JButton("Create Account"); create.setBackground(Color.darkGray); create.setForeground(Color.white); create.setFont(new Font("Helvetica", Font.PLAIN, 15)); create.setBounds(0, 110, 200, 60); create.setMnemonic('c'); create.setToolTipText("Create Account");
@@ -51,7 +50,7 @@ public class ADDBALANCE_Page extends JFrame implements ActionListener{
 			
 			bt_cnf = new JButton("Confirm"); bt_cnf.setBackground(Color.red); bt_cnf.setForeground(Color.white); bt_cnf.setFont(new Font("Helvetica", Font.PLAIN, 17)); bt_cnf.setBounds(420, 310, 100, 30); 
             c.add(l_name); c.add(l_pno); c.add(l_accnt); c.add(l_bal); c.add(l_gname); c.add(l_gpno); c.add(l_gaccnt); c.add(tf_bal); c.add(bt_cnf);
-            l_err = new JLabel("Enter Valid Amount"); l_err.setBackground(Color.black); l_err.setForeground(Color.red); l_err.setFont(new Font("Helvetica", Font.PLAIN, 13)); l_err.setBounds(420, 280, 300, 30); l_err.setVisible(false); c.add(l_err); 
+			l_err = new JLabel("Enter Valid Amount"); l_err.setBackground(Color.black); l_err.setForeground(Color.red); l_err.setFont(new Font("Helvetica", Font.PLAIN, 13)); l_err.setBounds(420, 280, 300, 30); l_err.setVisible(false); c.add(l_err); 
             
             login.addActionListener(this);
     	    create.addActionListener(this);
@@ -63,13 +62,14 @@ public class ADDBALANCE_Page extends JFrame implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource() == bt_cnf) {rb.addBalance(this);} 
-		if(ae.getSource() == login) {new LOGIN_Page(rb); this.dispose();}
-		if(ae.getSource() == create) {new CREATE_Page(rb); this.dispose();}
-		if(ae.getSource() == show) {rb.showBalance(new SHOW_Page(rb)); this.dispose();}
-		if(ae.getSource() == status) { rb.showDetails(new STATUS_Page(rb)); this.dispose();}
+		if(ae.getSource() == bt_cnf) {sq.addBalance(this);}
+		if(ae.getSource() == login) {new DSLogin(sq); this.dispose();}
+		if(ae.getSource() == create) {new DSCreate(sq); this.dispose();}
+		if(ae.getSource() == show) {sq.showBalance(new DSShow(sq)); this.dispose();}
+		if(ae.getSource() == status) {sq.showDetails(new DSStatus(sq)); this.dispose();}
 	}
 }
+
 
 
 

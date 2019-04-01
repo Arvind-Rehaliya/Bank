@@ -8,11 +8,11 @@ import GUI.login.SHOW_Page;
 
 public interface BankProcedure {
     void turnBankServerOn();
-	void createAccount(ReserveBank rb, CREATE_Page cp);
-	void addBalance(ReserveBank rb, ADDBALANCE_Page ad);
-    void addBalance1(ReserveBank rb, ADDBALANCE_Page ad);    
-    int showBalance(ReserveBank rb, SHOW_Page sp);
-    void authentic(LOGIN_Page lp, ReserveBank rb);
-    void generateAccountNo(ReserveBank rb);
-    void showDetails(ReserveBank rb, STATUS_Page st);
+	void createAccount(CREATE_Page cp);
+	void addBalance(ADDBALANCE_Page ad);
+    void addBalance1(ADDBALANCE_Page ad);    
+    void showBalance(SHOW_Page sp);
+    void authentic(LOGIN_Page lp);
+    void generateAccountNo();
+    void showDetails(STATUS_Page st);
 }
